@@ -1,12 +1,14 @@
 package com.exercises.githubdata.client.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GithubRepo {
 
     String name;
-    String html_url;
+    @JsonProperty("html_url")
+    String htmlUrl;
 
     public String getName () {
         return name;
@@ -16,11 +18,11 @@ public class GithubRepo {
         this.name = name;
     }
 
-    public String getHtml_url () {
-        return html_url;
+    public String getHtmlUrl () {
+        return htmlUrl;
     }
 
-    public void setHtml_url (String html_url){
-        this.html_url = html_url;
+    public void setHtmlUrl (String htmlUrl){
+        this.htmlUrl = htmlUrl;
     }
 }

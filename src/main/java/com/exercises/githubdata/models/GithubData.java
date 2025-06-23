@@ -1,5 +1,7 @@
 package com.exercises.githubdata.models;
 
+import java.util.List;
+
 public class GithubData {
     String username;
     String displayName;
@@ -8,12 +10,12 @@ public class GithubData {
     String email;
     String url;
     String createdAt;
-    Repo[] repos;
-    public Repo[] getRepos() {
+    List<Repo> repos;
+    public List<Repo> getRepos() {
         return repos;
     }
 
-    public void setRepos(Repo[] repos) {
+    public void setRepos(List<Repo> repos) {
         this.repos = repos;
     }
 

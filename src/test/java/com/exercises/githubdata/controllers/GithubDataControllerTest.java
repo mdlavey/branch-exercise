@@ -62,8 +62,20 @@ public class GithubDataControllerTest {
         Mockito.when(service.getGithubData("octocat")).thenThrow(error);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/octocat"))
                 .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("500 test error"));
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Github is unavailable.  Please try again later"));
+
+    }
+
+
+    @Test
+    public void nullResponse() throws Exception {
+        HttpClientErrorException error = new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "test error");
+        Mockito.when(service.getGithubData("octocat")).thenReturn(null);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/octocat"))
+                .andDo(print())
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Github is unavailable.  Please try again later"));
 
     }
 }

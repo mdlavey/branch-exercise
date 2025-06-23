@@ -41,4 +41,10 @@ public class EndToEndTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/nouserexists12345")).andDo(print())
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void nullUsername() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/")).andDo(print())
+                .andExpect(status().isNotFound());
+    }
 }

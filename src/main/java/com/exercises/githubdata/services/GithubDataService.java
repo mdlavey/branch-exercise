@@ -23,30 +23,34 @@ public class GithubDataService {
         GithubRepo[] getRepos = githubClient.getRepos(username);
         GetUser getUser = githubClient.getUser(username);
 
-        List<Repo> reposToReturn = new ArrayList<>();
-
-        for(GithubRepo repo : getRepos) {
-            Repo repoToReturn = new Repo();
-            repoToReturn.setName(repo.getName());
-            repoToReturn.setUrl(repo.getHtml_url());
-            reposToReturn.add(repoToReturn);
+        if(getUser == null) {
+            return null;
         }
 
-        return getGithubData(getUser, getRepos, reposToReturn);
+        List<Repo> reposToReturn = new ArrayList<>();
+        if(getRepos != null) {
+
+            for (GithubRepo repo : getRepos) {
+                Repo repoToReturn = new Repo();
+                repoToReturn.setName(repo.getName());
+                repoToReturn.setUrl(repo.getHtmlUrl());
+                reposToReturn.add(repoToReturn);
+            }
+        }
+
+        return getGithubData(getUser, reposToReturn);
     }
 
-    private static GithubData getGithubData(GetUser getUser, GithubRepo[] getRepos, List<Repo> reposToReturn) {
+    private GithubData getGithubData(GetUser getUser, List<Repo> reposToReturn) {
         GithubData githubData = new GithubData();
-        githubData.setAvatar(getUser.getAvatar_url());
-        githubData.setCreatedAt(getUser.getCreated_at());
+        githubData.setAvatar(getUser.getAvatarUrl());
+        githubData.setCreatedAt(getUser.getCreatedAt());
         githubData.setDisplayName(getUser.getName());
         githubData.setEmail(getUser.getEmail());
-        githubData.setUrl(getUser.getHtml_url());
+        githubData.setUrl(getUser.getHtmlUrl());
         githubData.setUsername(getUser.getLogin());
 
-        Repo[] reposArray = new Repo[getRepos.length];
-        reposArray = reposToReturn.toArray(reposArray);
-        githubData.setRepos(reposArray);
+        githubData.setRepos(reposToReturn);
         return githubData;
     }
 }

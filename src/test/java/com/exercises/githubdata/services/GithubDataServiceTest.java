@@ -1,11 +1,13 @@
 package com.exercises.githubdata.services;
 
+import com.exercises.githubdata.Utils;
 import com.exercises.githubdata.client.GithubClient;
 import com.exercises.githubdata.client.models.GetUser;
 import com.exercises.githubdata.client.models.GithubRepo;
 import com.exercises.githubdata.entities.GithubData;
 import com.exercises.githubdata.entities.Repo;
 import com.exercises.githubdata.repositories.GithubDataRedisRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -33,6 +35,14 @@ public class GithubDataServiceTest {
 
     @Autowired
     private GithubDataService service;
+
+    @Autowired
+    private Utils utils;
+
+    @AfterEach
+    public void cleanup() {
+        utils.cleanup();
+    }
 
     @Test
     public void successWithoutCache() {

@@ -1,7 +1,9 @@
 package com.exercises.githubdata.controllers;
 
+import com.exercises.githubdata.Utils;
 import com.exercises.githubdata.entities.GithubData;
 import com.exercises.githubdata.services.GithubDataService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,14 @@ public class GithubDataControllerTest {
 
     @MockitoBean
     private GithubDataService service;
+
+    @Autowired
+    private Utils utils;
+
+    @AfterEach
+    public void cleanup() {
+        utils.cleanup();
+    }
 
     @Test
     void success() throws Exception {

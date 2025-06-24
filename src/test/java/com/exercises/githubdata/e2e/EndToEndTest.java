@@ -1,14 +1,18 @@
 package com.exercises.githubdata.e2e;
 
+import com.exercises.githubdata.Utils;
 import com.exercises.githubdata.client.GithubClient;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -27,8 +31,16 @@ public class EndToEndTest {
     @Value("${e2eSuccessJsonBody}")
     private String e2eSuccessJsonBody;
 
-    @MockitoBean
+    @MockitoSpyBean
     private GithubClient client;
+
+    @Autowired
+    private Utils utils;
+
+    @AfterEach
+    public void cleanup() {
+        utils.cleanup();
+    }
 
     @Test
     void success() throws Exception {
@@ -39,13 +51,16 @@ public class EndToEndTest {
 
     @Test
     void successWithCache() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/octocat")).andDo(print())
+        String username = "octocat";
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/" + username)).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(e2eSuccessJsonBody));
-        
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/octocat")).andDo(print())
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/" + username)).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(e2eSuccessJsonBody));
+        Mockito.verify(client, Mockito.times(1)).getUser(username);
+        Mockito.verify(client, Mockito.times(1)).getRepos(username);
     }
 
 

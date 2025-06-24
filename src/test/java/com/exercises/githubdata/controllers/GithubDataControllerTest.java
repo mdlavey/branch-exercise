@@ -1,6 +1,6 @@
 package com.exercises.githubdata.controllers;
 
-import com.exercises.githubdata.models.GithubData;
+import com.exercises.githubdata.entities.GithubData;
 import com.exercises.githubdata.services.GithubDataService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

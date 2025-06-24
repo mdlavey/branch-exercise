@@ -1,10 +1,8 @@
 package com.exercises.githubdata.controllers;
 
-import com.exercises.githubdata.models.GithubData;
+import com.exercises.githubdata.entities.GithubData;
 import com.exercises.githubdata.services.GithubDataService;
-import jakarta.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

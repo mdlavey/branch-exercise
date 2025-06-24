@@ -1,8 +1,13 @@
-package com.exercises.githubdata.models;
+package com.exercises.githubdata.entities;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.util.List;
 
+@RedisHash
 public class GithubData {
+    @Id
     String username;
     String displayName;
     String avatar;

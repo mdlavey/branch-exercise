@@ -1,4 +1,4 @@
-package com.exercises.githubdata.models;
+package com.exercises.githubdata.entities;
 
 public class Repo {
     String name;

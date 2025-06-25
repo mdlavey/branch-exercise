@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
+import java.nio.charset.Charset;
+
 @Service
 public class GithubClient {
 
@@ -21,6 +23,9 @@ public class GithubClient {
 
     public GetUser getUser(String username) throws HttpClientErrorException {
         ResponseEntity<GetUser> getUserResponse = githubRestClient.get().uri("users/" + username).retrieve().toEntity(GetUser.class);
+        if(getUserResponse.getBody() == null) {
+            throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return getUserResponse.getBody();
     }
 

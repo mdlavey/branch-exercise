@@ -18,21 +18,14 @@ public class GithubDataController {
 
     @GetMapping("/api/v1/{githubUsername}")
     public ResponseEntity getGithubData(@PathVariable String githubUsername) {
-        ResponseEntity error = ResponseEntity.internalServerError().body("Github is unavailable.  Please try again later");
-
         try {
-            GithubData data = githubDataService.getGithubData(githubUsername);
-            if(data != null) {
-                return ResponseEntity.ok(data);
-            } else {
-                return error;
-            }
+            return ResponseEntity.ok(githubDataService.getGithubData(githubUsername));
 
         } catch (HttpClientErrorException e) {
             if(e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 return ResponseEntity.notFound().build();
             } else {
-                return error;
+                return ResponseEntity.internalServerError().body("Github is unavailable.  Please try again later");
             }
         }
     }

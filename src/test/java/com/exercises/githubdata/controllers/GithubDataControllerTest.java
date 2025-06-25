@@ -81,7 +81,7 @@ public class GithubDataControllerTest {
     @Test
     public void nullResponse() throws Exception {
         HttpClientErrorException error = new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "test error");
-        Mockito.when(service.getGithubData("octocat")).thenReturn(null);
+        Mockito.when(service.getGithubData("octocat")).thenThrow(error);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/octocat"))
                 .andDo(print())
                 .andExpect(status().isInternalServerError())

@@ -1,4 +1,8 @@
 # How to Run:
+* Install Java 21
+  * sudo apt-get install default-jdk
+* Install maven
+  * sudo apt-get install maven
 * Install Docker
   * docs.docker.com/engine/install
 * Install Docker Compose v2
@@ -6,6 +10,7 @@
   * sudo apt-get install docker-compose-v2
 * Run `docker compose up -d` to start containers in the background
 * Run `mvn clean test` to build and run tests
+  * docker compose must be running to run the tests because the end to end tests will store information in Redis
 * The application is running on port 8080
 * Make a GET request to `localhost:8080/api/v1/<githubUsername>`
 

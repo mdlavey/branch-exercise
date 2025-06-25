@@ -8,6 +8,7 @@
 * Install Docker Compose v2
   * docs.docker.com/compose/install/linux/#install-using-the-repository
   * sudo apt-get install docker-compose-v2
+* Navigate into the repo
 * Run `docker compose up -d` to start containers in the background
 * Run `mvn clean test` to build and run tests
   * docker compose must be running to run the tests because the end to end tests will store information in Redis
